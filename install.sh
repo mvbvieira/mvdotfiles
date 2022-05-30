@@ -40,7 +40,9 @@ fi
 
 echo -ne "\t+ Install VIMColorSchema ...\n"
 if [  -e "$HOME/.vim/colors" ]; then
-  cd ~/.vim/colors && curl -o molokai.vim https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim
+  if [ ! -e "$HOME/.vim/colors/molokai.vim" ]; then
+    cd ~/.vim/colors && curl -o molokai.vim https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim
+  fi
 fi
 
 echo -ne "\t+ Install FZF ...\n"
@@ -48,4 +50,12 @@ if [ ! -e "$HOME/.fzf" ]; then
   git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
 fi
 
+echo -ne "\t+ Install AutoSuggestions ...\n"
+if [ ! -e "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]; then
+  git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+fi
 
+echo -ne "\t+ Install SyntaxHighLighting ...\n"
+if [ ! -e "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]; then
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+fi
