@@ -80,6 +80,9 @@ Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown'}
 
 Plug 'derekwyatt/vim-scala'
 
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
 call plug#end()
 " Instant-Markdown settings.
 "let g:instant_markdown_slow = 1
