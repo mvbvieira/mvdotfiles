@@ -82,6 +82,7 @@ Plug 'derekwyatt/vim-scala'
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'tpope/vim-commentary'
 
 call plug#end()
 " Instant-Markdown settings.
@@ -232,7 +233,8 @@ nnoremap <silent> <leader>v :vsplit<CR>
 
 " NERDTree specific mappings.
 " Map the F3 key to toggle NERDTree open and close.
-nnoremap <F3> :NERDTreeToggle<cr>
+" nnoremap <F3> :NERDTreeToggle<cr>
+nnoremap <c-\> :NERDTreeToggle<cr>
 
 " Have nerdtree ignore certain files and directories.
 let NERDTreeIgnore=['\.git$', '\.jpg$', '\.mp4$', '\.ogg$', '\.iso$', '\.pdf$', '\.pyc$', '\.odt$', '\.png$', '\.gif$', '\.db$']
