@@ -53,6 +53,10 @@ set wildmode=list:longest
 " Wildmenu will ignore files with these extensions.
 set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 
+set backspace=indent,eol,start
+
+set nowrap
+
 " }}}
 
 
@@ -83,8 +87,16 @@ Plug 'derekwyatt/vim-scala'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-commentary'
+Plug 'pacha/vem-tabline'
+
+Plug 'derekwyatt/vim-scala'
+
+Plug 'nvie/vim-flake8'
+
 
 call plug#end()
+
+
 " Instant-Markdown settings.
 "let g:instant_markdown_slow = 1
 "let g:instant_markdown_autostart = 0
@@ -239,6 +251,12 @@ nnoremap <c-\> :NERDTreeToggle<cr>
 " Have nerdtree ignore certain files and directories.
 let NERDTreeIgnore=['\.git$', '\.jpg$', '\.mp4$', '\.ogg$', '\.iso$', '\.pdf$', '\.pyc$', '\.odt$', '\.png$', '\.gif$', '\.db$']
 
+nnoremap <C-j> :tabprevious<CR>                                                                            
+nnoremap <C-k> :tabnext<CR>
+nnoremap tn :tabnew<CR>
+
+
+
 
 " }}}
 
@@ -316,6 +334,16 @@ if has('gui_running')
         \endif<CR>
 
 endif
+
+if system('uname -s') == "Darwin\n"
+	set clipboard=unnamed "OSX
+else
+	set clipboard=unnamedplus "Linux
+endif
+
+let python_highlight_all=1
+syntax on
+
 
 " }}}
 
