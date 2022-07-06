@@ -1,13 +1,13 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""               
-"               
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
 "              ███╗   ███╗ ██╗   ██╗██╗███╗   ███╗██████╗  ██████╗
 "              ████╗ ████║ ██║   ██║██║████╗ ████║██╔══██╗██╔════╝
-"              ██╔████╔██║ ██║   ██║██║██╔████╔██║██████╔╝██║     
-"              ██║╚██╔╝██║ ╚██╗ ██╔╝██║██║╚██╔╝██║██╔══██╗██║     
+"              ██╔████╔██║ ██║   ██║██║██╔████╔██║██████╔╝██║
+"              ██║╚██╔╝██║ ╚██╗ ██╔╝██║██║╚██╔╝██║██╔══██╗██║
 "              ██║ ╚═╝ ██║  ╚████╔╝ ██║██║ ╚═╝ ██║██║  ██║╚██████╗
 "              ╚═╝     ╚═╝   ╚═══╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝
-"               
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""  
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " CONFIGS ---------------------------------------------------------------- {{{
 
@@ -43,7 +43,7 @@ set hlsearch
 " Set the commands to save in history default number is 20.
 set history=1000
 
-" Enable auto completion menu after pressing TAB.
+
 set wildmenu
 
 " Make wildmenu behave like similar to Bash completion.
@@ -68,6 +68,8 @@ Plug 'preservim/nerdtree'
 
 Plug 'davidhalter/jedi-vim'
 
+Plug 'w0rp/ale', { 'do': 'pip install flake8 isort yapf' }
+
 Plug 'https://github.com/vim-syntastic/syntastic.git'
 
 Plug 'https://github.com/airblade/vim-gitgutter.git'
@@ -87,13 +89,18 @@ Plug 'derekwyatt/vim-scala'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-commentary'
-Plug 'pacha/vem-tabline'
+Plug 'jiangmiao/auto-pairs'
 
-Plug 'derekwyatt/vim-scala'
 
 Plug 'nvie/vim-flake8'
+Plug 'sheerun/vim-polyglot'
 
+Plug 'terryma/vim-multiple-cursors'
 
+Plug 'vim-test/vim-test'
+Plug 'ntpeters/vim-better-whitespace'
+
+Plug 'godlygeek/tabular' | Plug 'tpope/vim-markdown'
 call plug#end()
 
 
@@ -111,37 +118,14 @@ let g:instant_markdown_allow_external_content = 1
 "let g:instant_markdown_python = 1
 
 " Recommended Syntastics settings.
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-    
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
+
 " Check syntax for python3 rather than python2.
-let g:syntastic_python_python_exec = '/usr/bin/python3'
+" let g:syntastic_python_python_exec = '/usr/bin/python3'
 
-" Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
-
-" Use compact syntax for prettified multi-line comments
-let g:NERDCompactSexyComs = 1
-
-" Align line-wise comment delimiters flush left instead of following code indentation
-let g:NERDDefaultAlign = 'left'
-
-" Set a language to use its alternate delimiters by default
-let g:NERDAltDelims_java = 1
-
-" Add your own custom formats or override the defaults
-let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
-
-" Allow commenting and inverting empty lines (useful when commenting a region)
-let g:NERDCommentEmptyLines = 1
-
-" Enable trimming of trailing whitespace when uncommenting
-let g:NERDTrimTrailingWhitespace = 1
-
-" Enable NERDCommenterToggle to check all selected lines is commented or not 
-let g:NERDToggleCheckAllLines = 1
 
 if executable('fzf')
   let $FZF_DEFAULT_COMMAND = 'ag -g ""'
@@ -182,13 +166,32 @@ if executable('fzf')
       \ 'header':  ['fg', 'Comment'] }
 end
 
+" .............................................................................
+" ntpeters/vim-better-whitespace
+" .............................................................................
+
+let g:strip_whitespace_confirm=0
+let g:strip_whitelines_at_eof=1
+let g:strip_whitespace_on_save=1
+
 " }}}
 
+
+" PLUG-CONFIGS --------------------------------------------------------------- {{{
+
+source ~/mvdotfiles/plug-configs/start.vim
+source ~/mvdotfiles/plug-configs/preservim-nerdtree.vim
+
+" }}}
+"
 
 " MAPPINGS --------------------------------------------------------------- {{{
 
 " Set the backslash as the leader key.
 let mapleader = ","
+
+" Enable mouse use in all modes
+set mouse=a
 
 " Press \\ to jump back to the last cursor position.
 nnoremap <leader>\ ``
@@ -203,7 +206,7 @@ nnoremap <silent> <leader>p :%w !lp<CR>
 inoremap jj <Esc>
 
 " Press the space bar to type the : character in command mode.
-nnoremap <space> :
+nnoremap <space> :noh<cr>
 
 " Pressing the letter o will open a new line below the current one.
 " Exit insert mode after creating a new line above or below the current line.
@@ -240,7 +243,7 @@ noremap <c-left> <c-w>>
 noremap <c-right> <c-w><
 
 " Split the windows using ,v and ,s
-nnoremap <silent> <leader>s :split<CR>
+nnoremap <silent> <leader>h :split<CR>
 nnoremap <silent> <leader>v :vsplit<CR>
 
 " NERDTree specific mappings.
@@ -251,12 +254,23 @@ nnoremap <c-\> :NERDTreeToggle<cr>
 " Have nerdtree ignore certain files and directories.
 let NERDTreeIgnore=['\.git$', '\.jpg$', '\.mp4$', '\.ogg$', '\.iso$', '\.pdf$', '\.pyc$', '\.odt$', '\.png$', '\.gif$', '\.db$']
 
-nnoremap <C-j> :tabprevious<CR>                                                                            
+nnoremap <C-j> :tabprevious<CR>
 nnoremap <C-k> :tabnext<CR>
 nnoremap tn :tabnew<CR>
 
+noremap <leader>1 1gt<cr>
+noremap <leader>2 2gt<cr>
+noremap <leader>3 3gt<cr>
+noremap <leader>4 4gt<cr>
+noremap <leader>5 5gt<cr>
+noremap <leader>6 6gt<cr>
+noremap <leader>7 7gt<cr>
+noremap <leader>8 8gt<cr>
+noremap <leader>9 9gt<cr>
+noremap <leader>0 :tablast<cr>
 
-
+" To turn off highlight until next search
+" map <esc> :noh <CR>
 
 " }}}
 
